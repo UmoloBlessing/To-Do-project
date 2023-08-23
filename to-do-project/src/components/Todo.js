@@ -1,31 +1,22 @@
-import { useState } from "react";
-import ListItem from "./ListItem";
-export default function Todo() {
-    const [todo, setTodo] = useState("");
-    const [todoList, setTodoList] = useState([]);
+import styles from './style.module.css'
 
-    const handleChange = (event)=> {
-        setTodo(event.target.value)
+
+const Todo = ({ todoItem, todoList }) => {
+
+    const deleteTodo = () => {
+        todoList.filter((item) => item.id !== todoItem.id)
     }
 
-    const handleSubmit = (event)=> {
-        event.preventDefault();
-        let tempList = todoList;
-        tempList.push(todo);
-        setTodoList(tempList);
-        console.log(todoList);
-        setTodo("")
-    }
-
-
-    return (<div>TODO
-        <form onSubmit={handleSubmit}>
-            <input type="text" value={todo} onChange={handleChange}></input>
-            <button type="submit">Add</button>
-        </form>
-
-        {todoList.map((item) => (
-            <ListItem key={item} name={item}>List Items</ListItem>
-        ))}
-    </div>)
+    return (
+        <div>
+            <div className={styles.todoitem}>
+                <h3 className={styles.todoname}>Todo Item</h3>
+                <h1>{todoItem.name}</h1>
+                <button onClick={deleteTodo} className={styles.deletebutton}>Done</button>
+            </div>
+        </div>
+    )
 }
+
+
+export default Todo;
